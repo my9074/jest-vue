@@ -1,9 +1,25 @@
 // import Vue from 'vue'
 import HelloWorld from '@/components/HelloWorld'
 import { shallowMount } from '@vue/test-utils'
+import { fetchTest, fetchTest2 } from '@/api/action';
 import flushPromises from 'flush-promises'
 
-jest.mock('axios')
+jest.mock('@/api/action', () => ({
+  fetchTest: jest.fn().mockResolvedValue({
+    data: 'value'
+  }),
+  fetchTest2: jest.fn().mockResolvedValue({
+    data: 'value2'
+  })
+}));
+
+fetchTest.mockResolvedValue({
+  data: 'value2'
+});
+
+fetchTest2.mockResolvedValue({
+  data: 'value'
+});
 
 describe('Component', () => {
   it('渲染正确的标记', () => {
